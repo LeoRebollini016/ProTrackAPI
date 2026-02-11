@@ -47,14 +47,14 @@ public class JwtTokenService(IOptions<AuthenticationOptions> jwtOptions, IHttpCo
         if (user?.Identity?.IsAuthenticated != true)
             return null;
         
-        var idClaim = user.FindFirst("sub");
+        var idClaim = user.FindFirst(ClaimTypes.NameIdentifier);
 
         return new UserAuthenticated
         {
             Id = Guid.Parse(idClaim!.Value),
-            Email = user.FindFirstValue("email") ?? string.Empty,
-            UserName = user.FindFirstValue("username") ?? string.Empty,
-            Roles = user.FindAll("role").Select(r => r.Value).ToList()
+            Email = user.FindFirstValue(ClaimTypes.Email) ?? string.Empty,
+            UserName = user.FindFirstValue(ClaimTypes.Name) ?? string.Empty,
+            Roles = user.FindAll(ClaimTypes.Role).Select(r => r.Value).ToList()
         };
     }
     private DateTime GetExpiresToken()

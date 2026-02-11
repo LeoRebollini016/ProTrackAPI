@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -27,5 +28,6 @@ public static class AuthorizationConfiguration
                     ValidateIssuerSigningKey = true
                 };
             });
+        services.AddAuthorization();
     }
 }

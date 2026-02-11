@@ -18,8 +18,8 @@ public static class PersistenceConfiguration
 {
     public static void ConfigurePersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<DatabaseOptions>(configuration.GetSection(DatabaseOptions.Database));
         services.Configure<AuthenticationOptions>(configuration.GetSection(AuthenticationOptions.SectionName));
+        services.Configure<DatabaseOptions>(configuration.GetSection(DatabaseOptions.Database));
         services.AddDbContext<ApplicationDbContext>();
 
         services.AddTransient<IDbConnection>(b =>
@@ -30,7 +30,6 @@ public static class PersistenceConfiguration
         services.AddScoped<IJwtTokenService, JwtTokenService>();
         services.AddTransient<IGenericRepository, GenericRepository>();
         services.AddTransient<IGenericsCommand, GenericsCommand>();
-        services.AddAuthentication();
         services.AddIdentityCore<User>(options =>
                 {
                     options.Password.RequireNonAlphanumeric = false;
