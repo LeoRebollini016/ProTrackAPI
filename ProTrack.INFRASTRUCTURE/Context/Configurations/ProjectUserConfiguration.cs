@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ProTrack.DOMAIN.Entities;
+using ProTrack.DOMAIN.Enum;
 
 namespace ProTrack.INFRAESTRUCTURE.Context.Configurations;
 
@@ -11,8 +12,9 @@ public class ProjectUserConfiguration : IEntityTypeConfiguration<ProjectUser>
         builder.HasKey(pu => new { pu.ProjectId, pu.UserId });
 
         builder.Property(pu => pu.Role)
+            .HasConversion<string>()
             .HasMaxLength(50)
-            .HasDefaultValue("Member");
+            .HasDefaultValue(ProjectUserRoleEnum.Member);
 
         builder.HasOne(pu => pu.User)
             .WithMany(u => u.ProjectUsers)

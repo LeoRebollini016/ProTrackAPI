@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using ProTrack.DOMAIN.Entities;
 using ProTrack.DOMAIN.Interfaces;
 using static ProTrack.APPLICATION.Helpers.FluentResultHelper;
-using static ProTrack.DOMAIN.Constants.AppConstants.ResultMessages;
+using static ProTrack.DOMAIN.Constants.Constants.AppConstants.AuthConstants;
 
 namespace ProTrack.APPLICATION.Features.Auth.Login;
 

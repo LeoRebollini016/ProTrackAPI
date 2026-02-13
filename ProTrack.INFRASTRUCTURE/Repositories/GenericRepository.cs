@@ -1,30 +1,26 @@
 ﻿using Dapper;
 using ProTrack.DOMAIN.Interfaces.Repositories;
 using ProTrack.INFRAESTRUCTURE.Extensions;
-using System.Data;
-using static ProTrack.DOMAIN.Constants.GenericQuery;
+using static ProTrack.DOMAIN.Constants.Queries.GenericQuery;
 
 namespace ProTrack.INFRAESTRUCTURE.Repositories;
 
-public class GenericRepository : IGenericRepository
+public class GenericRepository(IDbConnectionFactory _factory) : IGenericRepository
 {
-    private readonly IDbConnection _connection;
-
-    public GenericRepository(IDbConnection connection)
+    public async Task<bool> ExistsAsync<T>(string tableName, string columnName, T[] values, Guid? exclusedId, CancellationToken ct)
     {
-        _connection = connection;
-    }
-
-    public async Task<bool> ExistsAsync(string tableName, string columnName, object values, Guid? exclusedId, CancellationToken ct)
-    {
+        var valuesArray = values.ToArray();
+        using var _conn = _factory.CreateConnection();
         var query = GenericExistQuery.AddExcludeIdConditionQuery(exclusedId);
 
         var sql = string.Format(query, tableName, columnName, exclusedId);
 
-        return await _connection.QueryFirstOrDefaultAsync<bool>(new CommandDefinition(
+        var count = await _conn.QueryFirstOrDefaultAsync<int>(new CommandDefinition(
             sql,
-            new { Values = values },
+            new { Values = valuesArray },
             cancellationToken: ct
         ));
+
+        return count >= values.Distinct().Count();
     }
 }

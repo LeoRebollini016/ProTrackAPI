@@ -1,16 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using ProTrack.DOMAIN.Entities;
 using ProTrack.DOMAIN.Interfaces;
 using ProTrack.DOMAIN.Interfaces.Repositories;
 using ProTrack.DOMAIN.Options;
 using ProTrack.INFRAESTRUCTURE.Authentication;
-using ProTrack.INFRAESTRUCTURE.Commands;
 using ProTrack.INFRAESTRUCTURE.Context;
 using ProTrack.INFRAESTRUCTURE.Repositories;
-using System.Data;
+using ProTrack.INFRASTRUCTURE.Commands;
+using ProTrack.INFRASTRUCTURE.Repositories;
 
 namespace ProTrack.BOOTSTRAP.Providers;
 
@@ -22,14 +21,12 @@ public static class PersistenceConfiguration
         services.Configure<DatabaseOptions>(configuration.GetSection(DatabaseOptions.Database));
         services.AddDbContext<ApplicationDbContext>();
 
-        services.AddTransient<IDbConnection>(b =>
-        {
-            var databaseSettings = b.GetRequiredService<IOptions<DatabaseOptions>>().Value;
-            return new Npgsql.NpgsqlConnection(databaseSettings.DefaultConnection);
-        });
+        services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
         services.AddScoped<IJwtTokenService, JwtTokenService>();
         services.AddTransient<IGenericRepository, GenericRepository>();
         services.AddTransient<IGenericsCommand, GenericsCommand>();
+        services.AddTransient<IProjectRepository, ProjectRepository>();
+        services.AddTransient<IProjectAggregateRepository, ProjectAggregateRepository>();
         services.AddIdentityCore<User>(options =>
                 {
                     options.Password.RequireNonAlphanumeric = false;

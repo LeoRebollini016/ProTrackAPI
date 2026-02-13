@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using ProTrack.DOMAIN.Entities;
-using static ProTrack.DOMAIN.Constants.AppConstants.ResultMessages;
+using static ProTrack.DOMAIN.Constants.Constants.AppConstants.AuthConstants;
 using static ProTrack.APPLICATION.Helpers.FluentResultHelper;
 
 namespace ProTrack.APPLICATION.Features.Auth.Register;

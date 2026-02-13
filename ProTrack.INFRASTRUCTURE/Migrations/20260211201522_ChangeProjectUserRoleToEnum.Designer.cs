@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ProTrack.INFRAESTRUCTURE.Context;
@@ -11,9 +12,11 @@ using ProTrack.INFRAESTRUCTURE.Context;
 namespace ProTrack.INFRAESTRUCTURE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260211201522_ChangeProjectUserRoleToEnum")]
+    partial class ChangeProjectUserRoleToEnum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,14 +228,6 @@ namespace ProTrack.INFRAESTRUCTURE.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean")
                         .HasColumnName("is_deleted");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer")
-                        .HasColumnName("status");
-
-                    b.Property<DateTime?>("TargetDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("target_date");
 
                     b.Property<string>("Title")
                         .IsRequired()

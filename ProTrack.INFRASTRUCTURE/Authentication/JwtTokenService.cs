@@ -50,15 +50,15 @@ public class JwtTokenService(IOptions<AuthenticationOptions> jwtOptions, IHttpCo
         var idClaim = user.FindFirst(ClaimTypes.NameIdentifier);
 
         return new UserAuthenticated
-        {
-            Id = Guid.Parse(idClaim!.Value),
-            Email = user.FindFirstValue(ClaimTypes.Email) ?? string.Empty,
-            UserName = user.FindFirstValue(ClaimTypes.Name) ?? string.Empty,
-            Roles = user.FindAll(ClaimTypes.Role).Select(r => r.Value).ToList()
-        };
+        (
+            Id: Guid.Parse(idClaim!.Value),
+            Email: user.FindFirstValue(ClaimTypes.Email) ?? string.Empty,
+            UserName: user.FindFirstValue(ClaimTypes.Name) ?? string.Empty,
+            Roles: user.FindAll(ClaimTypes.Role).Select(r => r.Value).ToList()
+        );
     }
     private DateTime GetExpiresToken()
         => _jwtSettings.IsDevelopmentMode
-            ? DateTime.UtcNow.AddMinutes(_jwtSettings.Expire)
+            ? DateTime.UtcNow.AddHours(_jwtSettings.Expire)
             : DateTime.UtcNow.AddMonths(_jwtSettings.Expire);
 }

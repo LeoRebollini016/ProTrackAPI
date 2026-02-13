@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using ProTrack.DOMAIN.Dtos.Projects;
+using ProTrack.DOMAIN.Dtos.Projects.Requests;
+using ProTrack.DOMAIN.Dtos.Projects.Responses;
 using ProTrack.DOMAIN.Entities;
 
 namespace ProTrack.APPLICATION.Profiles;

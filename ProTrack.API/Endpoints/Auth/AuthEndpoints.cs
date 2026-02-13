@@ -1,6 +1,6 @@
 ﻿using ProTrack.API.Extensions.Infrastructure;
-using static ProTrack.DOMAIN.Constants.AppConstants.EndpointsGroupName;
-using static ProTrack.DOMAIN.Constants.AppConstants.SwaggerDocumentation;
+using static ProTrack.DOMAIN.Constants.Constants.AppConstants.EndpointsGroupName;
+using static ProTrack.DOMAIN.Constants.Constants.AppConstants.SwaggerDocumentation;
 using ProTrack.APPLICATION.Features.Auth.Register;
 using ProTrack.APPLICATION.Features.Auth.Login;
 using MediatR;

@@ -1,4 +1,4 @@
-﻿using static ProTrack.DOMAIN.Constants.AppConstants.SwaggerDocs;
+﻿using static ProTrack.DOMAIN.Constants.Constants.AppConstants.SwaggerDocs;
 
 namespace ProTrack.API.Extensions.Infrastructure;
 

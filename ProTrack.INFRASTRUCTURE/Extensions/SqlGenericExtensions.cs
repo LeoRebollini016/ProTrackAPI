@@ -1,4 +1,4 @@
-﻿using static ProTrack.DOMAIN.Constants.GenericQuery;
+﻿using static ProTrack.DOMAIN.Constants.Queries.GenericQuery;
 namespace ProTrack.INFRAESTRUCTURE.Extensions;
 
 public static class SqlGenericExtensions

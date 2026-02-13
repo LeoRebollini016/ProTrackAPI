@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Text.Json;
+using static ProTrack.DOMAIN.Constants.Constants.AppConstants.ExceptionMessages;
 
 namespace ProTrack.BOOTSTRAP.Middlewares;
 
@@ -18,7 +19,7 @@ public class GlobalExceptionMiddleware(RequestDelegate _next, ILogger<GlobalExce
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Ocurrió un error no manejado en la aplicación, Error: {Message}", ex.Message);
+            _logger.LogError(ex, UnexpectedError, ex.Message);
             await HandleExceptionAsync(context, ex);
         }
     }
@@ -30,7 +31,7 @@ public class GlobalExceptionMiddleware(RequestDelegate _next, ILogger<GlobalExce
 
         var message = env.IsDevelopment()
             ? ex.Message
-            : "Se produjo un error inesperado.";
+            : UnexpectedError;
 
         var response = new ProblemDetails
         {

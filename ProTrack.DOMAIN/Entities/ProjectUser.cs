@@ -1,4 +1,6 @@
-﻿namespace ProTrack.DOMAIN.Entities;
+﻿using ProTrack.DOMAIN.Enum;
+
+namespace ProTrack.DOMAIN.Entities;
 
 public class ProjectUser
 {
@@ -7,6 +9,6 @@ public class ProjectUser
     public Guid UserId { get; set; }
     public User User { get; set; } = null!;
 
-    public string Role { get; set; } = "Member";
+    public ProjectUserRoleEnum Role { get; set; } = ProjectUserRoleEnum.Member;
     public bool IsDeleted { get; set; } = false;
 }
