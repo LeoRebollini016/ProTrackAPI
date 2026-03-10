@@ -27,6 +27,10 @@ public static class AppConstants
         public const string AddMembersDescription = "Permite agregar uno o más miembros a un proyecto existente. Retorna 200 si es exitoso.";
         public const string UpdateRoleMemberSummary = "Actualizar el rol de un miembro";
         public const string UpdateRoleMemberDescription = "Permite actualizar el rol de un miembro en un proyecto. Retorna 204 si es exitoso";
+        public const string RemoveMemberSummary = "Eliminar a un miembro del proyecto.";
+        public const string RemoveMemberDescription = "Permite eliminar a un miembro del proyecto. Retorna 204 si es exitoso.";
+        public const string CreateTaskSummary = "Crear una nueva tarea en un proyecto";
+        public const string CreateTaskDescription = "Permite crear una nueva tarea en un proyecto. Retorna 201 si es exitoso.";
     }
     public static class ResultMessages
     {
@@ -65,5 +69,6 @@ public static class AppConstants
     {
         public const string EntityNotFound = "NotFound";
         public const string CompletedProject = "No se puede modificar un proyecto completado.";
+        public const string UserNotMember = "El usuario no es miembro activo del proyecto.";
     }
 }

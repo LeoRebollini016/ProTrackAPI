@@ -9,5 +9,6 @@ public class ProjectAggregateRepository(ApplicationDbContext _context) : IProjec
 {
     public async Task<Project?> GetByIdWithMembersAsync(Guid id, CancellationToken ct)
         => await _context.Projects.Include(p => p.ProjectUsers)
+                                  .Include(p => p.Tasks)
                                   .FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted, ct);
 }

@@ -17,6 +17,11 @@ public class ProjectService(IGenericsCommand _command, IProjectAggregateReposito
         await _command.AddRangeAsync(projectUsers, ct);
         await _command.SaveChangeAsync(ct);
     }
+    public async Task AddTaskAsync(ProjectTask task, CancellationToken ct)
+    {
+        await _command.AddAsync(task, ct);
+        await _command.SaveChangeAsync(ct);
+    }
     public async Task<Project?> GetProjectMembershipAsync(Guid id, CancellationToken ct)
         => await _aggregateRepo.GetByIdWithMembersAsync(id, ct);
     public async Task SaveChangesAsync(CancellationToken ct)

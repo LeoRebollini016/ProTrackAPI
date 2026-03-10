@@ -26,6 +26,12 @@ public class ProjectTaskConfiguration : IEntityTypeConfiguration<ProjectTask>
             .HasSentinel(TaskPriority.None)
             .HasDefaultValue(TaskPriority.Medium);
 
+        builder.Property(t => t.DueDate)
+           .HasColumnName("due_date")
+           .HasColumnType("timestamp with time zone")
+           .IsRequired(false)
+           .HasComment("Fecha límite de la tarea (UTC)");
+
         builder.HasQueryFilter(t => !t.IsDeleted);
 
         builder.HasOne(t => t.AssignedToUser)

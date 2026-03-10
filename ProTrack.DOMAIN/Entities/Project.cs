@@ -1,6 +1,8 @@
 ﻿using ProTrack.DOMAIN.Common;
 using ProTrack.DOMAIN.Enum;
 using static ProTrack.DOMAIN.Constants.Constants.AppConstants.DomainConstants;
+using static ProTrack.DOMAIN.Constants.Constants.AppConstants.ResultMessages;
+
 
 namespace ProTrack.DOMAIN.Entities;
 
@@ -28,6 +30,25 @@ public class Project : BaseEntity
             return CompletedProject;
 
         member.Role = newRole;
+        return null;
+    }
+    
+    public string? RemoveMember(Guid requestorId, Guid targetUserId)
+    {
+        var requestor = ProjectUsers.FirstOrDefault(pu => pu.UserId == requestorId && !pu.IsDeleted);
+        bool isSelfRemoval = requestorId == targetUserId;
+        bool hasPrivileges = requestor?.Role == ProjectUserRoleEnum.Owner ||
+                             requestor?.Role == ProjectUserRoleEnum.Admin;
+        if(requestor is null || (!hasPrivileges && !isSelfRemoval))
+            return EntityNotFound;
+        var targetMember = ProjectUsers.FirstOrDefault(pu => pu.UserId == targetUserId && !pu.IsDeleted);
+        if(targetMember is null)
+            return EntityNotFound;
+
+        if (targetMember.Role == ProjectUserRoleEnum.Owner)
+            return UnauthorizedAction;
+
+        targetMember.IsDeleted = true;
         return null;
     }
 }

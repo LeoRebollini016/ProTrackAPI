@@ -8,6 +8,7 @@ public class ProjectTask : BaseEntity
     public string Description { get; set; } = string.Empty;
     public TaskStatus Status { get; set; } = TaskStatus.ToDo;
     public TaskPriority Priority { get; set; } = TaskPriority.Medium;
+    public DateTimeOffset? DueDate { get; set; }
 
     public Guid ProjectId { get; set; }
     public virtual Project Project { get; set; } = null!;
